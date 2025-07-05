@@ -97,8 +97,7 @@ sam local invoke HelloWorldFunction --event events/event.json
 
 # Realizar o deploy com assistente
 sam deploy --guided
-
-
+```
 ---
 
 ## 🛡️ Boas Práticas Aplicadas
