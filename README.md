@@ -33,13 +33,16 @@ Realizar a migração de uma aplicação Node.js tradicional para uma arquitetur
 
 ## ⚙️ Tecnologias e Ferramentas
 
-- **Node.js** (runtime das funções Lambda)
-- **AWS SAM CLI**
-- **Docker** (ambiente local para testes)
-- **Amazon VPC (sub-redes privadas)**
-- **IAM Roles e Policies**
-- **Amazon Route 53 + SSL/TLS**
-- **Amazon CloudFront (CDN)**
+| Tecnologia                     | Descrição                                 |
+|-------------------------------|-------------------------------------------|
+| Node.js                       | Runtime das funções Lambda                 |
+| AWS SAM CLI                   | Ferramenta para desenvolvimento e deploy  |
+| Docker                        | Ambiente local para testes e emulação      |
+| Amazon VPC                    | Sub-redes privadas para isolamento e segurança |
+| IAM Roles e Policies          | Controle de permissões e segurança         |
+| Amazon Route 53 + SSL/TLS     | Gerenciamento de DNS e certificado SSL     |
+| Amazon CloudFront (CDN)       | Distribuição de conteúdo com baixa latência|
+
 
 ---
 
