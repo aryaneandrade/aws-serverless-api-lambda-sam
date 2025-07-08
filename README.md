@@ -1,126 +1,104 @@
-# 📡 Serverless API com AWS Lambda, SAM, API Gateway e RDS
+# 🧩 API Serverless com AWS SAM, Lambda, API Gateway e RDS
 
-Projeto prático desenvolvido como parte da Mentoria Desafio Labs - Formação AWS, com foco em arquitetura **serverless**, automação de infraestrutura e integração com serviços gerenciados da AWS.
+![GitHub last commit](https://img.shields.io/github/last-commit/seu-usuario/seu-repositorio?style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/seu-usuario/seu-repositorio?style=flat-square)
+![GitHub top language](https://img.shields.io/github/languages/top/seu-usuario/seu-repositorio?style=flat-square)
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=flat-square)
+![AWS SAM](https://img.shields.io/badge/AWS-SAM-orange?style=flat-square&logo=amazon-aws)
+
+---
+
+## 🧭 Arquitetura da Solução
+
+![arquitetura-serverless](./images/arquitetura-serverless.png)
+
+Este projeto implementa uma API REST em arquitetura 100% serverless na AWS. A solução é provisionada com AWS SAM e exposta via Amazon API Gateway. O backend é executado em funções AWS Lambda escritas em Node.js, integradas a um banco de dados PostgreSQL hospedado no Amazon RDS, em VPC privada.
 
 ---
 
 ## 📌 Objetivo
 
-Migrar uma aplicação Node.js para um ambiente **100% serverless** utilizando:
+Realizar a migração de uma aplicação Node.js tradicional para uma arquitetura 100% serverless, utilizando os principais serviços da AWS para garantir escalabilidade, alta disponibilidade, segurança e provisionamento automatizado.
 
-- AWS Lambda como camada de execução
-- Amazon API Gateway como camada de exposição HTTP
-- AWS SAM como framework de infraestrutura como código (IaC)
-- Amazon RDS (PostgreSQL) como banco de dados relacional
+### Componentes da Solução:
 
-O projeto contempla **execução local, testes, validação, build, deploy automatizado**, e **integração de backend com banco de dados em ambiente gerenciado**.
-
----
-
-## 🧰 Tecnologias e Serviços Utilizados
-
-| Tecnologia / Serviço       | Função no Projeto                          |
-|----------------------------|--------------------------------------------|
-| **AWS Lambda**             | Execução da lógica da API (function-as-a-service) |
-| **Amazon API Gateway**     | Exposição de endpoints HTTP (REST API)     |
-| **AWS SAM CLI**            | Build, validação e deploy via IaC          |
-| **Amazon RDS (PostgreSQL)**| Armazenamento persistente dos dados        |
-| **Docker**                 | Execução local da Lambda com SAM           |
-| **Node.js**                | Runtime da aplicação                       |
-| **CloudFormation**         | Provisionamento automatizado da infraestrutura |
+- **AWS Lambda**: execução da lógica de negócio sem gerenciamento de servidores.
+- **Amazon API Gateway**: gerenciamento e exposição dos endpoints HTTP.
+- **Amazon RDS (PostgreSQL)**: persistência de dados com segurança em VPC privada.
+- **AWS SAM**: modelagem da infraestrutura como código via `template.yml`.
+- **CloudFormation**: criação automatizada da stack de infraestrutura.
+- **CloudFront + Route 53**: configuração de domínio customizado e entrega de conteúdo com baixa latência.
 
 ---
 
-## 🧪 Etapas Realizadas
+## ⚙️ Tecnologias e Ferramentas
 
-1. Criação inicial da função Lambda no console AWS
-2. Instalação e configuração do ambiente SAM local
-3. Desenvolvimento e teste local da função utilizando Docker + SAM
-4. Build, validação e deploy com SAM CLI (`sam deploy`)
-5. Criação e configuração da API REST no API Gateway
-6. Integração da Lambda com o banco de dados RDS
-7. Testes de conectividade e resposta via endpoint público
-
----
-
-## 🖼️ Evidências Técnicas
-
-> ⚠️ Substitua os caminhos `./screenshots/...` pelas imagens reais após upload no repositório.
-
-### ✅ Função Lambda Criada via Console AWS  
-*Demonstra a criação inicial com runtime configurado.*  
-![lambda-console](./screenshots/lambda-console.png)
+- **Node.js** (runtime das funções Lambda)
+- **AWS SAM CLI**
+- **Docker** (ambiente local para testes)
+- **Amazon VPC (sub-redes privadas)**
+- **IAM Roles e Policies**
+- **Amazon Route 53 + SSL/TLS**
+- **Amazon CloudFront (CDN)**
 
 ---
 
-### ✅ Execução Local da Função com SAM CLI  
-*Função testada localmente com Docker via `sam local invoke`.*  
-![sam-local-invoke](./screenshots/sam-local-invoke.png)
-
----
-
-### ✅ Deploy Automatizado com SAM CLI  
-*Deploy da aplicação para a AWS utilizando `sam deploy --guided`.*  
-![sam-deploy](./screenshots/sam-deploy.png)
-
----
-
-### ✅ Integração da API Gateway com a Lambda  
-*Configuração do método HTTP vinculado à função Lambda.*  
-![api-gateway](./screenshots/api-gateway.png)
-
----
-
-### ✅ Teste Funcional do Endpoint REST  
-*Requisição realizada ao endpoint da API Gateway com resposta da função.*  
-![api-test](./screenshots/api-test.png)
-
----
-
-### ✅ Conexão da Lambda com Amazon RDS  
-*Trecho da função demonstrando integração com banco relacional.*  
-![lambda-rds](./screenshots/lambda-rds.png)
-
----
-
-## 📂 Comandos Essenciais
+## 🔄 Ciclo de Desenvolvimento com SAM CLI
 
 ```bash
-# Compilar a aplicação
+# Compilar os recursos definidos no template.yml
 sam build
 
-# Validar a estrutura do template SAM
+# Validar a definição da infraestrutura
 sam validate
 
-# Executar a função localmente com Docker
-sam local invoke HelloWorldFunction --event events/event.json
-
-# Realizar o deploy com assistente
+# Realizar o deploy com criação da stack no CloudFormation
 sam deploy --guided
+````
+
+> O arquivo `template.yml` contém toda a definição da infraestrutura serverless, incluindo funções Lambda, API Gateway, permissões, variáveis de ambiente, integração com RDS e configurações de VPC.
+
+---
+
+## 🌐 Endpoint de Teste
+
+```http
+GET https://seu-dominio.com.br/Prod/api/ping
 ```
----
-
-## 🛡️ Boas Práticas Aplicadas
-
-- Deploy automatizado com SAM (infraestrutura como código)
-- Conexão com RDS via variáveis de ambiente seguras (não expostas)
-- Separação de ambientes (desenvolvimento/teste)
-- Testes locais antes do deploy em nuvem
-- Uso de serviços gerenciados, reduzindo overhead operacional
 
 ---
 
-## 🧠 Aprendizados Técnicos
+## 📸 Capturas de Tela
 
-- Criação e execução de funções AWS Lambda via console e SAM
-- Utilização completa do ciclo de vida do SAM (build, validate, invoke, deploy)
-- Configuração de API Gateway com métodos e integração backend
-- Gerenciamento de banco relacional com Amazon RDS
-- Prática com Docker e execução local de ambiente AWS
+### ✅ Teste do endpoint `/api/ping`
+
+![ping-test](./images/ping-test.png)
+
+### 🧪 Deploy da aplicação com SAM CLI
+
+![sam-deploy](./images/sam-deploy.png)
+
+### ☁️ Stack criada no AWS CloudFormation
+
+![cloudformation-stack](./images/cloudformation-stack.png)
+
+### 🌍 Domínio customizado com Route 53 e CloudFront
+
+![custom-domain](./images/custom-domain.png)
+
+> As imagens devem ser armazenadas no diretório `/images` do repositório.
 
 ---
 
-## 👤 Autora
+## ✅ Resultados Técnicos
 
-**Aryane Andrade**  
-[LinkedIn](https://www.linkedin.com/in/aryane-andrade) 
+* Arquitetura serverless escalável e altamente disponível
+* Automatização completa do provisionamento com AWS SAM + CloudFormation
+* Integração segura com banco de dados em VPC privada
+* API exposta com domínio personalizado e certificado SSL
+* Redução de custos operacionais e eliminação de infraestrutura gerenciada
+
+---
+
+Se quiser, posso gerar o `template.yml` baseado nesse projeto ou criar o `.gitignore` ideal para AWS SAM + Node.js. Deseja isso?
+```
