@@ -1,0 +1,82 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-bia
+
+  Sample SAM Template for sam-bia
+  
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 10
+  Api:
+    Cors: 
+      AllowMethods: "'GET, PUT, POST, DELETE, OPTIONS'"
+      AllowHeaders: "'Content-Type, x-api-key'"
+      AllowOrigin: "'*'" # Change this to your frontend URL in production
+
+Resources:
+  TarefasFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: bia/
+      Handler: lambda.handler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      Events:
+        Ping:
+          Type: Api 
+          Properties:
+            Path: /api/ping
+            Method: get
+        GetTarefas:
+          Type: Api 
+          Properties:
+            Path: /api/tarefas
+            Method: get
+        PostTarefa:
+          Type: Api 
+          Properties:
+            Path: /api/tarefas
+            Method: post
+        GetTarefa:
+          Type: Api 
+          Properties: 
+            Path: /api/tarefas/{uuid}
+            Method: get
+        UpdatePriority:
+          Type: Api 
+          Properties: 
+            Path: /api/tarefas/update_priority/{uuid}
+            Method: put
+        DeleteTarefa:
+          Type: Api 
+          Properties: 
+            Path: /api/tarefas/{uuid}
+            Method: delete
+      Environment: 
+        Variables:
+          DB_PORT: 5432
+          DB_HOST: bia-db.cupu2eku4zq6.us-east-1.rds.amazonaws.com
+          DB_USER: postgres
+          DB_PWD:  HB6XUum7I0RPY2UIMbV0
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0fd66848c77e4c422 # Replace with your security group ID
+        SubnetIds:
+          - subnet-0d5e5f5056ec40118
+          - subnet-0ab7fdd2814302e85 # Replace with your subnet IDs
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  TarefasApi:
+    Description: "API Gateway endpoint URL for Prod stage for Tarefas function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/api/tarefas/"
+  TarefasFunction:
+    Description: "Tarefas Lambda Function ARN"
+    Value: !GetAtt TarefasFunction.Arn
+  TarefasFunctionIamRole:
+    Description: "Implicit IAM Role created for Tarefas function"
+    Value: !GetAtt TarefasFunctionRole.Arn
