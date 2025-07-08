@@ -10,9 +10,9 @@
 
 ## 🧭 Arquitetura da Solução
 
-![arquitetura-serverless](./images/arquitetura-serverless.png)
+![arquitetura-serverless](./images/arquitetura.png)
 
-Este projeto implementa uma API REST em arquitetura 100% serverless na AWS. A solução é provisionada com AWS SAM e exposta via Amazon API Gateway. O backend é executado em funções AWS Lambda escritas em Node.js, integradas a um banco de dados PostgreSQL hospedado no Amazon RDS, em VPC privada.
+Este projeto implementa uma API REST em arquitetura **100% serverless** na AWS. A solução é provisionada com AWS SAM e exposta via Amazon API Gateway. O backend é executado em funções AWS Lambda escritas em Node.js, integradas a um banco de dados PostgreSQL hospedado no Amazon RDS, em VPC privada.
 
 ---
 
@@ -60,33 +60,44 @@ sam deploy --guided
 
 ---
 
-## 🌐 Endpoint de Teste
-
-```http
-GET https://seu-dominio.com.br/Prod/api/ping
-```
-
----
-
 ## 📸 Capturas de Tela
 
-### ✅ Teste do endpoint `/api/ping`
+### Execução e Testes Locais com SAM CLI em Ambiente Docker 
 
-![ping-test](./images/ping-test.png)
+![test](./images/teste-local.png)
 
-### 🧪 Deploy da aplicação com SAM CLI
+### Validação da API em Produção via Domínio Customizado
 
-![sam-deploy](./images/sam-deploy.png)
+![test](./images/validacao-api.png)
 
-### ☁️ Stack criada no AWS CloudFormation
+### Teste de Disponibilidade através da Rota /api/ping 
 
-![cloudformation-stack](./images/cloudformation-stack.png)
+![test](./images/teste-ping.png)
 
-### 🌍 Domínio customizado com Route 53 e CloudFront
+###  Deploy da aplicação com SAM CLI
 
-![custom-domain](./images/custom-domain.png)
+![sam-deploy](./images/samcli.png)
 
-> As imagens devem ser armazenadas no diretório `/images` do repositório.
+### Stack criada no AWS CloudFormation
+
+![cloudformation-stack](./images/cloudformation.png)
+
+### Integração da API Gateway com a Função Lambda
+
+![API-Lambda](./images/lambda-api.png)
+
+### Integração Segura entre Lambda e Banco de Dados RDS
+
+![RDS](./images/lambda-rds.png)
+
+### Domínio customizado com Route 53 
+
+![custom-domain](./images/route53.png)
+
+### Distribuição Global com CloudFront e Otimização de Latência
+
+![custom-domain](./images/distribuicao-cdn.png)
+
 
 ---
 
@@ -100,5 +111,3 @@ GET https://seu-dominio.com.br/Prod/api/ping
 
 ---
 
-Se quiser, posso gerar o `template.yml` baseado nesse projeto ou criar o `.gitignore` ideal para AWS SAM + Node.js. Deseja isso?
-```
