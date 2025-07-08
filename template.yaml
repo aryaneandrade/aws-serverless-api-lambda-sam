@@ -58,15 +58,15 @@ Resources:
       Environment: 
         Variables:
           DB_PORT: 5432
-          DB_HOST: bia-db.cupu2eku4zq6.us-east-1.rds.amazonaws.com
+          DB_HOST: endpoint
           DB_USER: postgres
-          DB_PWD:  HB6XUum7I0RPY2UIMbV0
+          DB_PWD:  senha
       VpcConfig:
         SecurityGroupIds:
-          - sg-0fd66848c77e4c422 # Replace with your security group ID
+          - id_security_group # Replace with your security group ID
         SubnetIds:
-          - subnet-0d5e5f5056ec40118
-          - subnet-0ab7fdd2814302e85 # Replace with your subnet IDs
+          - id_subnet
+          - id_subnet # Replace with your subnet IDs
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
